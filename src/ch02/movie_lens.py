@@ -22,3 +22,15 @@ active_titles = ratings_by_title.index[ratings_by_title >= 250]
 mean_ratings = mean_ratings.ix[active_titles]
 
 top_female_ratings = mean_ratings.sort_index(by='F', ascending=False)
+
+mean_ratings['diff'] = mean_ratings['M'] - mean_ratings['F']
+sorted_by_diff = mean_ratings.sort_index(by='diff')
+
+# Standard deviation of rating grouped by title
+rating_std_by_title = data.groupby('title')['rating'].std()
+# Filter down to active titles
+rating_std_by_title = rating_std_by_title.ix[active_titles]
+# Order Series by value in descending order
+ordered_rating_std_by_title = rating_std_by_title.order(ascending=False)
+
+print 'Import done'
